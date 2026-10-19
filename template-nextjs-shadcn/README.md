@@ -49,4 +49,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 # Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 - Join the [Convex Discord community](https://convex.dev/community) to get help in real-time.
-- Follow [Convex on GitHub](https://github.com/get-convex/), star and contribute to the open-source implementation of Convex.
+- Follow [Convex on GitHub](https://github.com/convex/), star and contribute to the open-source implementation of Convex.
