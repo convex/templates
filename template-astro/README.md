@@ -57,7 +57,7 @@ export function withConvexProvider<Props extends JSX.IntrinsicAttributes>(
 npm create convex@latest my-app -- --template astro
 ```
 
-See [create-convex](https://github.com/get-convex/templates/tree/main/create-convex#create-convex) for more details.
+See [create-convex](https://github.com/convex/templates/tree/main/create-convex#create-convex) for more details.
 
 ## 📚 Learn More
 

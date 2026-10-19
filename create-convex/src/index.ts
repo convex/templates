@@ -92,9 +92,7 @@ async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
   const argTemplateRaw = argv.template || argv.t;
   if (typeof argTemplateRaw === "boolean") {
-    throw new Error(
-      red("✖") + " No template provided to -`t` or `--template`",
-    );
+    throw new Error(red("✖") + " No template provided to -`t` or `--template`");
   }
   if (argTemplateRaw && argv.component) {
     throw new Error(
@@ -529,7 +527,7 @@ const TEMPLATES_IN_REPO = [
   "tanstack-start-authkit",
 ];
 
-// E.g. `get-convex/templates/template-nextjs-convexauth#main`
+// E.g. `convex/templates/template-nextjs-convexauth#main`
 // or `atrakh/one-million-checkboxes`
 function getTemplateRepoPath(templateName: string) {
   // Allow overriding the branch via environment variable for development
@@ -545,12 +543,12 @@ function getTemplateRepoPath(templateName: string) {
   }
 
   if (TEMPLATES_IN_REPO.includes(templateName)) {
-    return `get-convex/templates/template-${templateName}#${branch}`;
+    return `convex/templates/template-${templateName}#${branch}`;
   }
 
   // This is one of our templates specifically for `npm create convex`
   // These are annoying to maintain, let's move the ones we care about to this repo.
-  const external = `get-convex/template-${templateName}#${branch}`;
+  const external = `convex/template-${templateName}#${branch}`;
   console.log(
     `Can't find template ${templateName} in create-convex repo, using external repo: ${external}`,
   );

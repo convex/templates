@@ -6,7 +6,7 @@
   "author": "Convex, Inc. <team@convex.dev>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/get-convex/templates.git",
+    "url": "https://github.com/convex/templates.git",
     "directory": "create-convex"
   },
   "homepage": "https://convex.dev",
