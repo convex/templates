@@ -9,6 +9,13 @@ import {
 } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { DEFAULT_MIN_PASSWORD_LENGTH } from "@convex-dev/auth/methods/username-password";
+import {
+  type SignInWithUsernamePasswordResult,
+  type SignUpWithUsernamePasswordResult,
+  useSignInWithUsernamePassword,
+  useSignUpWithUsernamePassword,
+} from "@convex-dev/auth/methods/username-password/react";
 import { useState } from "react";
 
 export default function App() {
@@ -51,8 +58,16 @@ function SignOutButton() {
 }
 
 function SignInForm() {
-  const { signIn } = useAuthActions();
+  const { signIn, pending: signInPending } = useSignInWithUsernamePassword(
+    api.auth,
+  );
+  const { signUp, pending: signUpPending } = useSignUpWithUsernamePassword(
+    api.auth,
+  );
+  const pending = signInPending || signUpPending;
   const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   return (
     <div className="flex flex-col gap-8 w-96 mx-auto">
@@ -61,28 +76,49 @@ function SignInForm() {
         className="flex flex-col gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          const formData = new FormData(e.target);
-          formData.set("flow", flow);
-          void signIn("password", formData).catch((error) => {
-            setError(error.message);
+          setError(null);
+          void (flow === "signIn" ? signIn : signUp)({
+            username,
+            password,
+          }).then((result) => {
+            if (result.status !== "complete") {
+              setError(errorMessage(result.userError));
+            }
           });
         }}
       >
         <input
           className="bg-light dark:bg-dark text-dark dark:text-light rounded-md p-2 border-2 border-slate-200 dark:border-slate-800"
-          type="email"
-          name="email"
-          placeholder="Email"
+          // A static id helps password managers behave correctly
+          id="username"
+          name="username"
+          type="text"
+          placeholder="Username"
+          autoComplete="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          disabled={pending}
         />
         <input
           className="bg-light dark:bg-dark text-dark dark:text-light rounded-md p-2 border-2 border-slate-200 dark:border-slate-800"
-          type="password"
+          id="password"
           name="password"
+          type="password"
           placeholder="Password"
+          autoComplete={flow === "signIn" ? "current-password" : "new-password"}
+          minLength={
+            flow === "signUp" ? DEFAULT_MIN_PASSWORD_LENGTH : undefined
+          }
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          disabled={pending}
         />
         <button
           className="bg-dark dark:bg-light text-light dark:text-dark rounded-md"
           type="submit"
+          disabled={pending}
         >
           {flow === "signIn" ? "Sign in" : "Sign up"}
         </button>
@@ -94,7 +130,10 @@ function SignInForm() {
           </span>
           <span
             className="text-dark dark:text-light underline hover:no-underline cursor-pointer"
-            onClick={() => setFlow(flow === "signIn" ? "signUp" : "signIn")}
+            onClick={() => {
+              setFlow(flow === "signIn" ? "signUp" : "signIn");
+              setError(null);
+            }}
           >
             {flow === "signIn" ? "Sign up instead" : "Sign in instead"}
           </span>
@@ -102,13 +141,51 @@ function SignInForm() {
         {error && (
           <div className="bg-red-500/20 border-2 border-red-500/50 rounded-md p-2">
             <p className="text-dark dark:text-light font-mono text-xs">
-              Error signing in: {error}
+              {error}
             </p>
           </div>
         )}
       </form>
     </div>
   );
+}
+
+type UserError = Extract<
+  SignInWithUsernamePasswordResult | SignUpWithUsernamePasswordResult,
+  { status: "error" }
+>["userError"];
+
+function errorMessage(userError: UserError): string {
+  switch (userError.error) {
+    case "USER_NOT_FOUND":
+      return "No account exists with that username.";
+    case "INVALID_CREDENTIALS":
+      return "Incorrect username or password.";
+    case "RATE_LIMITED":
+      return `Too many attempts. Try again in ${Math.ceil(userError.retryAfterMs / 1000)} seconds.`;
+    case "USERNAME_TAKEN":
+      return "That username is already taken.";
+    case "USERNAME_TOO_SHORT":
+      return `Username must be at least ${userError.minimumLength} characters.`;
+    case "USERNAME_HAS_SURROUNDING_WHITESPACE":
+      return "Username can't start or end with whitespace.";
+    case "USERNAME_HAS_INVALID_CHARACTERS":
+      return "Username contains characters that aren't allowed.";
+    case "PASSWORD_TOO_SHORT":
+      return `Password must be at least ${userError.minimumLength} characters.`;
+    case "PASSWORD_TOO_LONG":
+      return `Password must be at most ${userError.maximumLength} characters.`;
+    case "PASSWORD_HAS_SURROUNDING_WHITESPACE":
+      return "Password can't start or end with whitespace.";
+    case "PASSWORD_TOO_COMMON":
+      return "That password is too common. Please choose a different one.";
+    case "OTHER_ERROR":
+      console.error(userError.cause);
+      return "Something went wrong. Please try again.";
+    default:
+      userError satisfies never;
+      return "Something went wrong. Please try again.";
+  }
 }
 
 function Content() {

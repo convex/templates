@@ -4,8 +4,11 @@ import { env } from "./_generated/server";
 export default {
   providers: [
     {
-      domain: env.CONVEX_SITE_URL,
+      type: "customJwt",
       applicationID: "convex",
+      issuer: env.CONVEX_SITE_URL,
+      jwks: `${env.CONVEX_SITE_URL}/auth/.well-known/jwks.json`,
+      algorithm: "RS256",
     },
   ],
 } satisfies AuthConfig;

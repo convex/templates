@@ -8,7 +8,7 @@ After the initial setup (<2 minutes) you'll have a working full-stack app using:
 - [React](https://react.dev/) as your frontend (web page interactivity)
 - [Next.js](https://nextjs.org/) for optimized web hosting and page routing
 - [Tailwind](https://tailwindcss.com/) for building great looking accessible UI
-- [Convex Auth](https://labs.convex.dev/auth) for authentication
+- [Convex Auth](https://auth-v2.previews.convex.dev) for authentication (username + password sign-in)
 
 ## Get started
 
@@ -32,11 +32,11 @@ To learn more about developing your project with Convex, check out:
 - The [Tour of Convex](https://docs.convex.dev/get-started) for a thorough introduction to Convex principles.
 - The rest of [Convex docs](https://docs.convex.dev/) to learn about all Convex features.
 - [Stack](https://stack.convex.dev/) for in-depth articles on advanced topics.
-- [Convex Auth docs](https://labs.convex.dev/auth) for documentation on the Convex Auth library.
+- [Convex Auth docs](https://auth-v2.previews.convex.dev) for documentation on the Convex Auth library.
 
 ## Configuring other authentication methods
 
-To configure different authentication methods, see [Configuration](https://labs.convex.dev/auth/config) in the Convex Auth docs.
+This template signs users in with a username and a password. To add other login methods, such as GitHub, Google, Apple, passkeys or email + password, see the login provider guides in the [Convex Auth docs](https://auth-v2.previews.convex.dev). For the Next.js-specific wiring (the `app/auth/` route handlers, `proxy.ts` and `lib/`), see [Setting up Next.js](https://auth-v2.previews.convex.dev/ssr-nextjs/setup).
 
 ## Join the community
 

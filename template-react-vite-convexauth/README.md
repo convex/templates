@@ -8,7 +8,7 @@ After the initial setup (<2 minutes) you'll have a working full-stack app using:
 - [React](https://react.dev/) as your frontend (web page interactivity)
 - [Vite](https://vitest.dev/) for optimized web hosting
 - [Tailwind](https://tailwindcss.com/) for building great looking UI
-- [Convex Auth](https://labs.convex.dev/auth) for authentication
+- [Convex Auth](https://auth-v2.previews.convex.dev) for authentication (username + password sign-in)
 
 ## Get started
 
@@ -25,9 +25,7 @@ If you're reading this README on GitHub and want to use this template, run:
 npm create convex@latest -- -t react-vite-convexauth
 ```
 
-For more information on how to configure Convex Auth, check out the [Convex Auth docs](https://labs.convex.dev/auth/).
-
-For more examples of different Convex Auth flows, check out this [example repo](https://www.convex.dev/templates/convex-auth).
+This template signs users in with a username and a password. To add other login methods, such as GitHub, Google, Apple, passkeys or email + password, see the login provider guides in the [Convex Auth docs](https://auth-v2.previews.convex.dev).
 
 ## Learn more
 

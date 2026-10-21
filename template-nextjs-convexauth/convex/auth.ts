@@ -1,6 +1,12 @@
-import { Password } from "@convex-dev/auth/providers/Password";
-import { convexAuth } from "@convex-dev/auth/server";
+import { components, internal } from "./_generated/api";
+import { setupConvexAuth } from "@convex-dev/auth/server";
+import { setupUsernamePassword } from "@convex-dev/auth/methods/username-password/server";
 
-export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
-  providers: [Password],
-});
+const auth = setupConvexAuth({ component: components.auth });
+export const { signOut, refreshSession, isAuthenticated } = auth;
+
+export const { signUpWithUsernamePassword, signInWithUsernamePassword } =
+  setupUsernamePassword(auth, {
+    component: components.authPassword,
+    usernameComponent: components.authUsername,
+  }).attachUserCallbacks({ createUser: internal.users.createUser });

@@ -2,11 +2,16 @@ import Home from "./inner";
 import { preloadQuery, preloadedQueryResult } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import Image from "next/image";
+import { convexAuthNextjsAccessToken } from "@/lib/convexAuth";
 
 export default async function ServerPage() {
-  const preloaded = await preloadQuery(api.myFunctions.listNumbers, {
-    count: 3,
-  });
+  // Pass the signed-in user's access token so the query runs as them.
+  const token = await convexAuthNextjsAccessToken();
+  const preloaded = await preloadQuery(
+    api.myFunctions.listNumbers,
+    { count: 3 },
+    { token: token ?? undefined },
+  );
 
   const data = preloadedQueryResult(preloaded);
 
@@ -14,12 +19,7 @@ export default async function ServerPage() {
     <main className="p-8 flex flex-col gap-6 mx-auto max-w-2xl">
       <div className="flex items-center justify-center gap-4">
         <div className="flex items-center gap-4">
-          <Image
-            src="/convex.svg"
-            alt="Convex Logo"
-            width={48}
-            height={48}
-          />
+          <Image src="/convex.svg" alt="Convex Logo" width={48} height={48} />
           <div className="w-px h-12 bg-slate-300 dark:bg-slate-600"></div>
           <Image
             src="/nextjs-icon-light-background.svg"

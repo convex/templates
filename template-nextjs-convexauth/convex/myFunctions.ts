@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation, action } from "./_generated/server";
-import { api } from "./_generated/api";
+import { api, components } from "./_generated/api";
 import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Write your Convex functions in any file inside this directory (`convex`).
@@ -23,9 +23,14 @@ export const listNumbers = query({
       .order("desc")
       .take(args.count);
     const userId = await getAuthUserId(ctx);
-    const user = userId === null ? null : await ctx.db.get("users", userId);
+    const username =
+      userId === null
+        ? null
+        : await ctx.runQuery(components.authUsername.public.getUsername, {
+            userId,
+          });
     return {
-      viewer: user?.email ?? null,
+      viewer: username,
       numbers: numbers.reverse().map((number) => number.value),
     };
   },
