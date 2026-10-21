@@ -10,6 +10,8 @@ After the initial setup (<2 minutes) you'll have a working full-stack app using:
 - [Tailwind](https://tailwindcss.com/) for building great looking UI
 - [Convex Auth](https://auth-v2.previews.convex.dev) for authentication (username + password sign-in)
 
+<!-- TODO(erquhart): swap auth-v2.previews.convex.dev links for the final docs URL at launch -->
+
 ## Get started
 
 If you just cloned this codebase and didn't use `npm create convex`, run:
