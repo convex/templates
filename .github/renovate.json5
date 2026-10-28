@@ -1,7 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-    "helpers:pinGitHubActionDigests","config:recommended"],
+  extends: ["config:recommended", "helpers:pinGitHubActionDigests"],
   timezone: "America/Los_Angeles",
   minimumReleaseAge: "7 days",
   ignorePaths: [
