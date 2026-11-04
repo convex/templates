@@ -130,7 +130,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
-          node-version: "24"
+          node-version: "26"
           cache: "npm"
           cache-dependency-path: "${{ matrix.use_bun == true && format('{0}/bun.lock', matrix.project) || format('{0}/package-lock.json', matrix.project) }}"
 
