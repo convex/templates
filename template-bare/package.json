@@ -16,7 +16,7 @@
     "@convex-dev/eslint-plugin": "^5.0.0",
     "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^24.13.3",
+    "@types/node": "^26.6.5",
     "@typescript-eslint/eslint-plugin": "^8.66.0",
     "@typescript-eslint/parser": "^8.66.0",
     "@typescript/native": "npm:typescript@^7.0.2",
