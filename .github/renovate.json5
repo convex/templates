@@ -16,7 +16,7 @@
     {
       groupName: "Routine updates",
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
-      prConcurrentLimit: 1,
+      prConcurrentLimit: 0,
       automerge: true,
     },
     {
@@ -30,7 +30,7 @@
       matchPackageNames: ["convex"],
       minimumReleaseAge: null,
       automerge: true,
-      prConcurrentLimit: 5,
+      prConcurrentLimit: 0,
     },
     {
       description: "Bypass minimum release age for other Convex packages",
