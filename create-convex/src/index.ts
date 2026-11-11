@@ -6,7 +6,6 @@ import minimist from "minimist";
 import path from "path";
 import prompts from "prompts";
 import { PackageManager, detectPackageManager } from "./packageManagers";
-import { writeCursorRules } from "./cursorRules";
 import { isGitInstalled, printMissingGitMessage } from "./git";
 
 // Avoids autoconversion to number of the project name by defining that the args
@@ -270,8 +269,6 @@ async function init() {
 
   // Remove package-lock.json if it exists
   fs.rmSync(path.join(root, "package-lock.json"), { force: true });
-
-  await writeCursorRules(root);
 
   if (!component) {
     const pkg = JSON.parse(
