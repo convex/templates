@@ -23,8 +23,9 @@ by the tests and release workflow.
 ## Releases
 
 Add a Changeset for each user-visible package change with `npx changeset`.
-Review the generated version PR and its changelog before merging. A bot-created
-PR may need `Test and lint` run manually on `changeset-release/main`.
+Review the generated version PR and its changelog before merging. Approve its
+GitHub Actions runs if GitHub requests approval, and wait for `Test and lint`
+to pass.
 Merging the version PR stages the tested package on npm from its exact commit;
 a maintainer reviews and approves it with 2FA. See [PUBLISHING.md](PUBLISHING.md)
 for setup and recovery.
