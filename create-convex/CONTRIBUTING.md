@@ -33,6 +33,7 @@ VERSION=$(npm version patch)
 git add package.json package-lock.json
 git commit -m "$VERSION"
 git tag "$VERSION"
+git push
 git push --tags
 npm publish
 ```
