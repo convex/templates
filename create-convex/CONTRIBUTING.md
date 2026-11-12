@@ -36,13 +36,6 @@ stable versions use `latest`, and prereleases such as `0.0.48-alpha.0` use
 `alpha`. After staging succeeds, CI tags that source commit as `v<version>`.
 Review the staged package on npm and approve it with 2FA to publish it.
 
-Before the first CI release, configure a stage-only npm trusted publisher for
-`convex/templates` and the root `release.yml` workflow:
-
-```sh
-npm trust github create-convex --repo convex/templates --file release.yml --allow-stage-publish
-```
-
 If staging fails, check npm for an existing staged copy before dispatching
 **Release** with the version-bump commit SHA. If staging succeeded but tagging
 failed, verify the staged package and rerun the failed `tag` job in the
