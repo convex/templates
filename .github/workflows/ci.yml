@@ -86,6 +86,11 @@ jobs:
             # Check if this project changed
             project_changed=$(echo "$CHANGES" | jq -r --arg proj "$project" '.[$proj]')
 
+            # Keep the create-convex check available as a required main-branch gate.
+            if [[ "$project" == "create-convex" ]]; then
+              project_changed="true"
+            fi
+
             # Special case: if workflow changed, also build all projects
             workflow_changed=$(echo "$CHANGES" | jq -r '.workflow')
             if [[ "$workflow_changed" == "true" ]]; then
