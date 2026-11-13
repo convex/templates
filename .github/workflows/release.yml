@@ -25,7 +25,7 @@ env:
 jobs:
   plan:
     if: github.repository == 'convex/templates'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     permissions:
       contents: read
@@ -99,7 +99,7 @@ jobs:
   build:
     needs: plan
     if: needs.plan.outputs.sha != ''
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 30
     permissions:
       contents: read
@@ -146,7 +146,7 @@ jobs:
 
   stage:
     needs: [plan, build]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -191,7 +191,7 @@ jobs:
 
   tag:
     needs: [plan, stage]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     permissions:
       contents: write
