@@ -4,35 +4,46 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: ["**"]
+
+permissions: {}
 
 jobs:
   check:
     name: Test and lint
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
 
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Node setup
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          cache-dependency-path: package.json
-          node-version: "26.x"
+          cache-dependency-path: package-lock.json
+          node-version: "24.22.1"
           cache: "npm"
 
       - name: Install and build
         run: |
-          npm i
+          npm ci
           npm run build
+      - name: Test
+        run: npm run check
+      - name: Run E2E smoke test and verify generated code
+        env:
+          CONVEX_DISABLE_TELEMETRY: "1"
+        run: |
+          npm run test:e2e
+          git diff --exit-code -- src/component/_generated example/convex/_generated
+          test -z "$(git ls-files --others --exclude-standard src/component/_generated example/convex/_generated)"
       - name: Publish package for testing branch
         run: npx pkg-pr-new publish || echo "pkg-pr-new failed"
-      - name: Test
-        run: |
-          npm run test
-          npm run typecheck
-          npm run lint

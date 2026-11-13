@@ -1,4 +1,5 @@
-.agents/skills/
-.claude/skills/
-convex/_generated/
-example/convex/_generated/
+dist
+package-lock.json
+**/_generated/
+*.tsbuildinfo
+.convex/
