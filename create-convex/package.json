@@ -21,11 +21,10 @@
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
+    "check": "npm run test && npm run typecheck",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --typecheck",
     "dev:test": "vitest --typecheck",
-    "prepublishOnly": "npm run build",
-    "prepack": "node dont-publish-alpha-as-latest.cjs",
     "lint": "echo ESLint is not configured",
     "dev:run": "node ./dist/index.mjs",
     "prepare": "patch-package"
@@ -34,6 +33,7 @@
     "node": ">=20.20.2"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
     "@types/prompts": "^2.4.9",
