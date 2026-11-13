@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.9",
-    "convex": "^1.49.0",
+    "convex": "^1.50.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
