@@ -36,8 +36,7 @@ To release, tag the merged version PR's commit with `v<version>`. This starts
 the **Release** workflow:
 
 ```sh
-sha=$(gh pr view <release-pr> -R convex/templates --json mergeCommit -q .mergeCommit.oid)
-gh api repos/convex/templates/git/refs -f ref=refs/tags/v0.0.48 -f sha="$sha"
+gh api repos/convex/templates/git/refs -f ref=refs/tags/v0.0.48 -f sha=<commit>
 ```
 
 Or, from a local clone: `git tag v0.0.48 <commit> && git push origin v0.0.48`.
@@ -53,13 +52,9 @@ stage ID from the workflow log.
 
 If the workflow fails, check npm's staged packages first:
 
-- Not staged: rerun the failed jobs, for example after pushing `main` if the tag
-  went first. A rerun uses the run's original commit and works for 30 days:
-
-  ```sh
-  id=$(gh run list -R convex/templates -w release.yml -b v0.0.48 -L 1 --json databaseId -q '.[0].databaseId')
-  gh run rerun "$id" -R convex/templates --failed
-  ```
+- Not staged: rerun the failed jobs (`gh run rerun <run-id> --failed`), for
+  example after pushing `main` if the tag went first. A rerun uses the run's
+  original commit and works for 30 days.
 
   To release a different commit, fix the source and move the tag:
 
