@@ -5,7 +5,6 @@ import Image from "next/image";
 import { convexAuthNextjsAccessToken } from "@/lib/convexAuth";
 
 export default async function ServerPage() {
-  // Pass the signed-in user's access token so the query runs as them.
   const token = await convexAuthNextjsAccessToken();
   const preloaded = await preloadQuery(
     api.myFunctions.listNumbers,

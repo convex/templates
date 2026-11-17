@@ -75,7 +75,6 @@ export default function SignIn() {
       >
         <input
           className="bg-white dark:bg-slate-900 text-foreground rounded-lg p-3 border border-slate-300 dark:border-slate-600 focus:border-slate-500 dark:focus:border-slate-400 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700 outline-none transition-all placeholder:text-slate-400"
-          // A static id helps password managers behave correctly
           id="username"
           name="username"
           type="text"
