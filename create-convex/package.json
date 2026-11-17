@@ -22,6 +22,7 @@
     "dev": "unbuild --stub",
     "build": "unbuild",
     "check": "npm run test && npm run typecheck",
+    "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --typecheck",
     "dev:test": "vitest --typecheck",
