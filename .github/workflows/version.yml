@@ -76,6 +76,6 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: convex/release-actions/tag-version@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
+      - uses: convex/npm-release-actions/tag-version@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
         with:
           working-directory: create-convex
