@@ -32,8 +32,9 @@ changes since the last release. GitHub Actions opens that PR, so click
 **Approve workflows to run** if its checks are waiting. Merge it when you want to
 release.
 
-To release, tag the merged version PR's commit with `v<version>`. This starts
-the **Release** workflow:
+When the version PR merges, CI tags the commit that set the new version as
+`v<version>` and starts the **Release** workflow on that tag. To release a
+different commit, tag it yourself:
 
 ```sh
 gh api repos/convex/templates/git/refs -f ref=refs/tags/v0.0.48 -f sha=<commit>
@@ -52,6 +53,8 @@ stage ID from the workflow log.
 
 If the workflow fails, check npm's staged packages first:
 
+- Tagged, but Release didn't start: start it on the tag with
+  `gh workflow run release.yml -R convex/templates --ref v0.0.48`.
 - Not staged: rerun the failed jobs
   (`gh run rerun <run-id> -R convex/templates --failed`), for example after
   pushing `main` if the tag went first. A rerun uses the run's original commit

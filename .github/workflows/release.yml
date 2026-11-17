@@ -3,6 +3,8 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  # Started on a tag by the version workflow, or by hand to retry a tag.
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}
@@ -16,6 +18,8 @@ env:
 
 jobs:
   build:
+    # Manual runs must target a v<version> tag, not a branch with that name.
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-26.04
     timeout-minutes: 30
     permissions:
