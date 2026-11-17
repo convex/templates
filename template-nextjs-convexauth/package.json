@@ -4,14 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "convex dev --start 'next dev'",
-    "predev": "convex init && node setup.mjs --once",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && next build",
     "start": "next start",
     "lint": "eslint . --ignore-pattern \"convex/_generated/**\""
   },
   "dependencies": {
-    "@convex-dev/auth": "^0.0.95",
+    "@convex-dev/auth": "^2.0.0",
     "convex": "^1.50.0",
     "next": "16.4.5",
     "react": "^19.2.8",
@@ -24,7 +23,6 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@typescript/native": "npm:typescript@^7.0.2",
-    "dotenv": "^18.0.6",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.0",
     "prettier": "^3.9.6",
