@@ -52,9 +52,10 @@ stage ID from the workflow log.
 
 If the workflow fails, check npm's staged packages first:
 
-- Not staged: rerun the failed jobs (`gh run rerun <run-id> --failed`), for
-  example after pushing `main` if the tag went first. A rerun uses the run's
-  original commit and works for 30 days.
+- Not staged: rerun the failed jobs
+  (`gh run rerun <run-id> -R convex/templates --failed`), for example after
+  pushing `main` if the tag went first. A rerun uses the run's original commit
+  and works for 30 days.
 
   To release a different commit, fix the source and move the tag:
 
