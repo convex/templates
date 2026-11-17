@@ -18,8 +18,6 @@ env:
 
 jobs:
   build:
-    # Manual runs must target a v<version> tag, not a branch with that name.
-    if: github.ref_type == 'tag'
     runs-on: ubuntu-26.04
     timeout-minutes: 30
     permissions:
@@ -31,8 +29,8 @@ jobs:
       name: ${{ steps.release.outputs.name }}
       version: ${{ steps.release.outputs.version }}
       channel: ${{ steps.release.outputs.channel }}
-      artifact_id: ${{ steps.upload.outputs.artifact-id }}
-      sha256: ${{ steps.digest.outputs.sha256 }}
+      artifact_id: ${{ steps.pack.outputs.artifact-id }}
+      sha256: ${{ steps.pack.outputs.sha256 }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -44,63 +42,19 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           package-manager-cache: false
       - id: release
-        name: Validate the tagged release
-        run: |
-          version=$(jq -r .version package.json)
-          name=$(jq -r .name package.json)
-          test "$GITHUB_REF_NAME" = "v$version" || {
-            echo "Tag $GITHUB_REF_NAME does not match package.json version $version" >&2
-            exit 1
-          }
-          [[ "$version" != *+* ]] || {
-            echo "Build metadata is not supported: $version" >&2
-            exit 1
-          }
-          if [[ "$version" == *-* ]]; then
-            channel="${version#*-}"
-            channel="${channel%%.*}"
-            [[ "$channel" =~ ^[a-z][a-z0-9-]*$ && "$channel" != latest ]] || {
-              echo "Invalid prerelease channel: $channel" >&2
-              exit 1
-            }
-          else
-            channel=latest
-            git fetch --no-tags origin main:refs/remotes/origin/main
-            git merge-base --is-ancestor "$GITHUB_SHA" origin/main || {
-              echo "Stable release commit must be on main" >&2
-              exit 1
-            }
-          fi
-          {
-            echo "name=$name"
-            echo "version=$version"
-            echo "channel=$channel"
-          } >> "$GITHUB_OUTPUT"
+        uses: convex/release-actions/validate-tag@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
+        with:
+          working-directory: create-convex
       - run: npm ci
-      - name: Validate release notes
-        run: |
-          # Compare against this checkout while reading all notes, including prerelease state.
-          git update-ref refs/heads/main HEAD
-          npx changeset status --output "$RUNNER_TEMP/changesets.json"
-          jq -e '.changesets | length == 0' "$RUNNER_TEMP/changesets.json"
-          version=$(jq -r .version package.json)
-          awk -v version="$version" '/^## / { active=($0 == "## " version); next } active && !/^#/ && /[[:alnum:]]/ { found=1 } END { exit !found }' CHANGELOG.md
+      - uses: convex/release-actions/check-release-notes@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
+        with:
+          working-directory: create-convex
       - run: npm run build
       - run: npm run check
-      - name: Pack the tested package
-        run: |
-          mkdir -p "$RUNNER_TEMP/npm-release"
-          npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/npm-release"
-      - id: digest
-        run:
-          echo "sha256=$(sha256sum "$RUNNER_TEMP"/npm-release/*.tgz | cut -d ' '
-          -f 1)" >> "$GITHUB_OUTPUT"
-      - id: upload
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+      - id: pack
+        uses: convex/release-actions/pack@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
         with:
-          name: npm-release-${{ github.sha }}
-          path: ${{ runner.temp }}/npm-release/*.tgz
-          if-no-files-found: error
+          working-directory: create-convex
 
   stage:
     needs: build
@@ -110,37 +64,11 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      - uses: convex/release-actions/stage@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
         with:
+          artifact-id: ${{ needs.build.outputs.artifact_id }}
+          sha256: ${{ needs.build.outputs.sha256 }}
+          name: ${{ needs.build.outputs.name }}
+          version: ${{ needs.build.outputs.version }}
+          channel: ${{ needs.build.outputs.channel }}
           node-version: ${{ env.NODE_VERSION }}
-          package-manager-cache: false
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
-        with:
-          artifact-ids: ${{ needs.build.outputs.artifact_id }}
-          path: ${{ runner.temp }}/npm-release
-          merge-multiple: true
-      - name: Stage the tested artifact
-        env:
-          PACKAGE_NAME: ${{ needs.build.outputs.name }}
-          VERSION: ${{ needs.build.outputs.version }}
-          CHANNEL: ${{ needs.build.outputs.channel }}
-          EXPECTED_SHA256: ${{ needs.build.outputs.sha256 }}
-        run: |
-          set -o pipefail
-          set -- "$RUNNER_TEMP"/npm-release/*.tgz
-          test "$#" -eq 1
-          TARBALL="$1"
-          echo "$EXPECTED_SHA256  $TARBALL" | sha256sum -c -
-          {
-            echo "$PACKAGE_NAME@$VERSION — source $GITHUB_SHA — npm channel $CHANNEL"
-            echo "Review on npm's Staged Packages page, then approve with 2FA or npm stage approve <stage-id>."
-          } >> "$GITHUB_STEP_SUMMARY"
-          npm stage publish "$TARBALL" \
-            --ignore-scripts --provenance --access public --tag "$CHANNEL" \
-            2>&1 | tee "$RUNNER_TEMP/npm-stage.log"
-      - name: Preserve staging output and stage ID
-        if: always()
-        run: |
-          if test -f "$RUNNER_TEMP/npm-stage.log"; then
-            cat "$RUNNER_TEMP/npm-stage.log" >> "$GITHUB_STEP_SUMMARY"
-          fi

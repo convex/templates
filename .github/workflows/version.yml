@@ -67,9 +67,6 @@ jobs:
     if: github.repository == 'convex/templates' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-26.04
     timeout-minutes: 5
-    defaults:
-      run:
-        working-directory: create-convex
     permissions:
       contents: write # create the version tag
       actions: write # start Release on the new tag
@@ -79,28 +76,6 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Tag the commit that set an unreleased version
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          name=$(jq -r .name package.json)
-          version=$(jq -r .version package.json)
-          tag="v$version"
-          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
-            echo "$tag already exists"
-            exit 0
-          fi
-          if out=$(npm view "$name@$version" version 2>&1); then
-            echo "$name@$version is already on npm"
-            exit 0
-          fi
-          grep -q E404 <<<"$out" || { echo "$out" >&2; exit 1; }
-          # The newest first-parent commit whose parent had another version set this one.
-          for commit in $(git rev-list --first-parent HEAD -- package.json); do
-            previous=$(git show "$commit^1:./package.json" 2>/dev/null | jq -r .version || true)
-            [[ "$previous" == "$version" ]] || break
-          done
-          # Tags pushed with GITHUB_TOKEN don't trigger workflows, so start Release on the tag.
-          gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$commit" >/dev/null
-          gh workflow run release.yml --repo "$GITHUB_REPOSITORY" --ref "$tag"
-          echo "Tagged $commit as $tag and started Release" >> "$GITHUB_STEP_SUMMARY"
+      - uses: convex/release-actions/tag-version@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
+        with:
+          working-directory: create-convex
