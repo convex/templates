@@ -1,9 +1,9 @@
 import { internalMutation } from "./_generated/server";
 import { v } from "convex/values";
 
-// Called by Convex Auth the first time someone signs up. Creates the row in
-// your `users` table and returns its id. Add profile fields to the table in
-// `schema.ts` and set them here.
+// Creates a `users` row for a new account and returns its id. Convex Auth
+// calls this when someone signs up. To store profile fields, add them to the
+// `users` table in `schema.ts` and set them here.
 export const createUser = internalMutation({
   args: {
     method: v.object({
