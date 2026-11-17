@@ -83,6 +83,7 @@ export default function SignIn() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          disabled={loading}
         />
         <div className="flex flex-col gap-1">
           <input
@@ -100,6 +101,7 @@ export default function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
           />
           {flow === "signUp" && (
             <p className="text-xs text-slate-500 dark:text-slate-400 px-1">
