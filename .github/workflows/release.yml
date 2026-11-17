@@ -48,6 +48,10 @@ jobs:
             echo "Tag $GITHUB_REF_NAME does not match package.json version $version" >&2
             exit 1
           }
+          [[ "$version" != *+* ]] || {
+            echo "Build metadata is not supported: $version" >&2
+            exit 1
+          }
           if [[ "$version" == *-* ]]; then
             channel="${version#*-}"
             channel="${channel%%.*}"

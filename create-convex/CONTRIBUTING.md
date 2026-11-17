@@ -43,12 +43,13 @@ gh api repos/convex/templates/git/refs -f ref=refs/tags/v0.0.48 -f sha="$sha"
 Or, from a local clone: `git tag v0.0.48 <commit> && git push origin v0.0.48`.
 
 The tag must match `create-convex/package.json`'s version. Stable releases must
-be on `main`; the commit may be older than the current tip. The workflow builds
-and checks that commit, then stages the tested package on npm. Its npm channel
-follows the version: stable versions use `latest`, and prereleases such as
-`0.0.48-alpha.0` use `alpha`. Review the staged package on npm and approve it
-with 2FA, or run `npm stage approve <stage-id>` with the stage ID from the
-workflow log.
+be on `main`; the commit may be older than the current tip. GitHub runs the
+release workflow from the tagged commit, so the commit must include it. The
+workflow builds and checks that commit, then stages the tested package on npm.
+Its npm channel follows the version: stable versions use `latest`, and
+prereleases such as `0.0.48-alpha.0` use `alpha`. Review the staged package on
+npm and approve it with 2FA, or run `npm stage approve <stage-id>` with the
+stage ID from the workflow log.
 
 If the workflow fails, check npm's staged packages first:
 
