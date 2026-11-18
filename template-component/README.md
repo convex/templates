@@ -11,7 +11,7 @@ To create your own component:
    your component
 1. Write example usage in example/convex/example.ts.
 1. Delete the text in this readme until `---` and flesh out the README.
-1. Publish to npm with `npm run alpha` or `npm run release`.
+1. Publish to npm from CI: see [PUBLISHING.md](PUBLISHING.md).
 
 To develop your component run a dev process in the example project:
 

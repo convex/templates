@@ -14,6 +14,13 @@ Before the first release, replace the template npm package name and GitHub
 repository with your own, and confirm `package.json` repository metadata matches
 the GitHub repository. Then:
 
+- If the package isn't on npm yet, publish its first version yourself, since npm
+  can only configure trusted publishing and staging for an existing package:
+
+  ```sh
+  npm run build && npm publish --access public
+  ```
+
 - Register stage-only npm trusted publishing for `release.yml`:
 
   ```sh
