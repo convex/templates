@@ -10,8 +10,8 @@
     "lint": "eslint . --ignore-pattern \"convex/_generated/**\""
   },
   "dependencies": {
-    "convex": "^1.49.0",
-    "next": "16.4.1",
+    "convex": "^1.50.0",
+    "next": "16.4.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
