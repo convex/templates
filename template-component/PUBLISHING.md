@@ -1,84 +1,74 @@
-# Publishing
+# Publishing from CI
 
-In order for other people to install and use this component, you can publish the
-package to npm.
+The package is versioned with Changesets and released from `v<version>` tags.
+When a reviewed version PR merges to `main`, the version workflow tags the
+commit that set the new version and starts
+[`release.yml`](.github/workflows/release.yml) on that tag. The release builds
+and tests that exact commit, then stages the tested package on npm with trusted
+publishing. A maintainer reviews the staged package on npm and approves it with
+2FA.
 
-You will first need to have an npmjs account with permissions to push to your
-package name.
+## Setup
 
-If this is your first time, here are the recommended steps:
+Before the first release, replace the template npm package name and GitHub
+repository with your own, and confirm `package.json` repository metadata matches
+the GitHub repository. Then:
 
-1. Ensure the package.json "name" matches what you want it to be called. It
-   should either be like `my-package` or `@my-org/my-package`. If it's the
-   latter, ensure you have an npmjs account with permissions to push to
-   `my-org`.
-2. `npm login` to login to npmjs.
-3. `npm run clean` to clean your `/dist` directory.
-4. `npm ci` to install the dependencies with the versions specified in
-   `package-lock.json`.
-5. `npm run build` to build the package fresh.
-6. (Optional) `npm run typecheck` to typecheck the package.
-7. (Optional) `npm run lint` to lint the package.
-8. (Optional) `npm run test` to test the package.
-9. (Optional) `npm pack` will create a .tgz file of the package. You can then
-   try installing it in another project with
-   `npm install ./path/to/your-package.tgz` to sanity check that it works as
-   expected. You can remove the .tgz file after.
-10. `npm publish --access public` to publish the package to npm.
-11. `git tag v0.1.0` to tag the new version.
-12. `git push --follow-tags` to push the tags to the repository. This way, other
-    contributors can always see what code was published with each version.
-    Running `npm version ...` will create these tags and commits automatically.
+- If the package isn't on npm yet, publish its first version yourself, since npm
+  can only configure trusted publishing and staging for an existing package. Run
+  the same checks as the release workflow, from a clean clone of the commit you
+  intend to release:
 
-After the initial publish, you can use the release scripts documented below,
-which will do steps 3-12 automatically (except the sanity check in step 9).
+  ```sh
+  git clone https://github.com/example-org/sample-component && cd sample-component
+  npm ci
+  npm run build
+  npm run check
+  npm run test:e2e
+  git status --porcelain # should print nothing
+  npm publish --access public
+  ```
 
-## Package scripts for releasing
+- Register stage-only npm trusted publishing for `release.yml`:
 
-In package.json, there are some scripts that are useful for doing releases.
+  ```sh
+  npm trust github @example/sample-component --repo example-org/sample-component --file release.yml --allow-stage-publish
+  ```
 
-- `preversion` will run the tests and typecheck the code before marking a new
-  version.
-- `version` will open the changelog in vim and then save it before committing
-  the new version.
-- `prepublishOnly` will make a clean build of the package before publishing.
+- Allow GitHub Actions to create pull requests, for the Changesets version PR.
+- Require the always-running `Test and lint` check on `main`. GitHub asks a
+  maintainer to approve workflow runs on bot-created version PRs before that
+  check can complete.
 
-These are not required and can be modified or removed if desired. They will all
-be run automatically when using one of the deployment commands.
+## Releasing another commit
 
-## Deploying a new alpha version
+To release a commit other than the one CI tags, such as a prerelease from a
+branch, tag it yourself:
 
 ```sh
-npm run alpha
+gh api repos/example-org/sample-component/git/refs -f ref=refs/tags/v1.2.3 -f sha=<commit>
 ```
 
-This will create a prerelease version with an `@alpha` tag. It will then publish
-the package to npm and push the code and new tag. Users can install the package
-with `npm install @your-package@alpha`.
+The tag must match `package.json`'s version, and stable releases must be on
+`main`. The first prerelease identifier selects the npm channel, such as
+`alpha`.
 
-## Deploying a new release version
+## Recovery
 
-```sh
-npm run release
-```
+The tag records intent to release; npm is the source of truth for what was
+staged. If the workflow fails, check npm's staged packages first:
 
-This will create a patch version and publish as `latest`. It will then publish
-the package to npm and push the code and new tag. To publish a new minor or
-major version, you can run the commands manually:
+- Tagged, but Release didn't start: start it on the tag with
+  `gh workflow run release.yml -R example-org/sample-component --ref v1.2.3`.
+- Not staged: rerun the failed jobs
+  (`gh run rerun <run-id> -R example-org/sample-component --failed`). A rerun
+  uses the run's original commit and works for 30 days. To release a different
+  commit, fix the source and move the tag:
 
-```sh
-npm version minor # or major
-npm publish
-git push --follow-tags
-```
+  ```sh
+  gh api -X PATCH repos/example-org/sample-component/git/refs/tags/v1.2.3 -f sha=<commit> -F force=true
+  ```
 
-## Building a one-off package
-
-```sh
-npm run clean
-npm run build
-npm pack
-```
-
-You can then provide the .tgz file to others to install via
-`npm install ./path/to/your-package.tgz`.
+- Staged, but rejected in review: `npm stage reject <stage-id>` frees the
+  version, so you can move the tag to a corrected commit. A published version
+  cannot be reused; prepare a new version instead.
