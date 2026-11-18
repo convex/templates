@@ -339,6 +339,7 @@ async function init() {
       if (verbose) {
         console.log(red((error as any).toString()));
       }
+      process.exitCode = 1;
     }
   }
 
