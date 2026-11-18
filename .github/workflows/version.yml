@@ -33,7 +33,7 @@ jobs:
           package-manager-cache: false
       - run: npm ci --ignore-scripts
         working-directory: create-convex
-      - uses: convex/npm-release-actions/version-pr@281c1e1e72c35f17f32b1bb935dda2714667c2b8 # version-pr (convex/npm-release-actions#2)
+      - uses: convex/npm-release-actions/version-pr@cd5cf2dbfe8b3c735a5ed841c1c858595c81a0c7 # version-pr (convex/npm-release-actions#2)
         with:
           working-directory: create-convex
 
@@ -51,6 +51,6 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: convex/npm-release-actions/tag-version@281c1e1e72c35f17f32b1bb935dda2714667c2b8 # version-pr (convex/npm-release-actions#2)
+      - uses: convex/npm-release-actions/tag-version@cd5cf2dbfe8b3c735a5ed841c1c858595c81a0c7 # version-pr (convex/npm-release-actions#2)
         with:
           working-directory: create-convex
