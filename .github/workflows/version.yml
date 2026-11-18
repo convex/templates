@@ -33,34 +33,9 @@ jobs:
           package-manager-cache: false
       - run: npm ci --ignore-scripts
         working-directory: create-convex
-      - name: Check whether a version PR is needed
-        id: mode
-        uses: changesets/action/select-mode@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+      - uses: convex/npm-release-actions/version-pr@281c1e1e72c35f17f32b1bb935dda2714667c2b8 # version-pr (convex/npm-release-actions#2)
         with:
-          cwd: create-convex
-      - name: Check main is still at this run's commit
-        if: steps.mode.outputs.mode == 'version'
-        id: freshness
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          main_sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
-          if [[ "$main_sha" == "$GITHUB_SHA" ]]; then
-            echo "current=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "current=false" >> "$GITHUB_OUTPUT"
-            echo "Skipping release PR update: main has moved beyond this run's commit."
-          fi
-      - name: Create or update the release PR
-        if: steps.mode.outputs.mode == 'version' &&
-          steps.freshness.outputs.current == 'true'
-        uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
-          cwd: create-convex
-          github-token: ${{ github.token }}
-          pr-title: "Prepare next release"
-          commit-message: "Version packages"
-          pr-base-branch: main
+          working-directory: create-convex
 
   tag:
     name: Tag a new version
@@ -76,6 +51,6 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: convex/npm-release-actions/tag-version@89da82807c5dce6bb46b4d5397eb17fc65c22b3a # v0.1.0
+      - uses: convex/npm-release-actions/tag-version@281c1e1e72c35f17f32b1bb935dda2714667c2b8 # version-pr (convex/npm-release-actions#2)
         with:
           working-directory: create-convex
