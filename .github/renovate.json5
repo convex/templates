@@ -3,6 +3,8 @@
   extends: ["config:recommended", "helpers:pinGitHubActionDigests"],
   timezone: "America/Los_Angeles",
   minimumReleaseAge: "14 days",
+  // npm 12 fails lockfile-only installs with Tailwind 4: https://github.com/npm/cli/issues/9800
+  constraints: { npm: "^11" },
   ignorePaths: [
     "template-nextjs-clerk-shadcn/**",
     "template-nextjs-lucia-shadcn/**",
