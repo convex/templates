@@ -7,6 +7,7 @@ import path from "path";
 import prompts from "prompts";
 import { PackageManager, detectPackageManager } from "./packageManagers";
 import { isGitInstalled, printMissingGitMessage } from "./git";
+import { getTemplateRepoPath, isComponentPackage } from "./templateSource";
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string. See #4606
@@ -85,6 +86,7 @@ console.log(`Using package manager: ${green(packageManager)}`);
 
 init().catch((e) => {
   console.error(e);
+  process.exitCode = 1;
 });
 
 async function init() {
@@ -232,7 +234,12 @@ async function init() {
     argTemplate,
   });
 
-  const templateRepoPath = getTemplateRepoPath(givenTemplate);
+  const templateRepoPath = getTemplateRepoPath(
+    givenTemplate,
+    TEMPLATES_IN_REPO,
+    // Overrides the branch, for working on the templates in this repo.
+    process.env.CONVEX_TEMPLATE_BRANCH,
+  );
 
   console.log(`\nSetting up...`);
 
@@ -248,6 +255,7 @@ async function init() {
 
   if (!isGitInstalled()) {
     printMissingGitMessage();
+    process.exitCode = 1;
     return;
   }
 
@@ -264,6 +272,7 @@ async function init() {
       console.log(red((error as any).toString()));
     }
     console.log(red(`✖ Failed to download template from \`${repo}\``));
+    process.exitCode = 1;
     return;
   }
 
@@ -271,16 +280,33 @@ async function init() {
   fs.rmSync(path.join(root, "package-lock.json"), { force: true });
 
   if (!component) {
-    const pkg = JSON.parse(
-      fs.readFileSync(path.join(root, `package.json`), "utf-8"),
-    );
+    const packageJsonPath = path.join(root, "package.json");
+    if (!fs.existsSync(packageJsonPath)) {
+      const [repoPath] = templateRepoPath.split("#");
+      console.log(
+        red(`✖ ${bold(repoPath)} has no package.json to install from.`),
+      );
+      if (repoPath.split("/").length <= 2) {
+        console.log(
+          `  If the app is in a subfolder, add it to the template, like ${bold(
+            `${repoPath}/path/to/app`,
+          )}.`,
+        );
+      }
+      process.exitCode = 1;
+      return;
+    }
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
-    pkg.name = packageName || getProjectName();
+    if (isComponentPackage(pkg)) {
+      console.log(
+        `Keeping the package name ${bold(pkg.name)}: this is a Convex component, and its example imports it by that name.`,
+      );
+    } else {
+      pkg.name = packageName || getProjectName();
 
-    fs.writeFileSync(
-      path.join(root, "package.json"),
-      JSON.stringify(pkg, null, 2) + "\n",
-    );
+      fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2) + "\n");
+    }
   }
 
   // Remove vercel.json from template if --with-vercel-json is not set
@@ -300,6 +326,7 @@ async function init() {
     await installDependencies();
   } catch (error) {
     console.log(red("✖ Failed to install dependencies."));
+    process.exitCode = 1;
   }
 
   // Run initTemplate.mjs for component projects
@@ -312,6 +339,7 @@ async function init() {
       if (verbose) {
         console.log(red((error as any).toString()));
       }
+      process.exitCode = 1;
     }
   }
 
@@ -523,31 +551,3 @@ const TEMPLATES_IN_REPO = [
   "tanstack-start-clerk",
   "tanstack-start-authkit",
 ];
-
-// E.g. `convex/templates/template-nextjs-convexauth#main`
-// or `atrakh/one-million-checkboxes`
-function getTemplateRepoPath(templateName: string) {
-  // Allow overriding the branch via environment variable for development
-  const branch = process.env.CONVEX_TEMPLATE_BRANCH || "main";
-
-  // Does this look like a repo name already?
-  if (templateName.includes("/")) {
-    if (templateName.includes("#")) {
-      return templateName;
-    } else {
-      return templateName + `#${branch}`;
-    }
-  }
-
-  if (TEMPLATES_IN_REPO.includes(templateName)) {
-    return `convex/templates/template-${templateName}#${branch}`;
-  }
-
-  // This is one of our templates specifically for `npm create convex`
-  // These are annoying to maintain, let's move the ones we care about to this repo.
-  const external = `convex/template-${templateName}#${branch}`;
-  console.log(
-    `Can't find template ${templateName} in create-convex repo, using external repo: ${external}`,
-  );
-  return external;
-}
