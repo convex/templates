@@ -4,9 +4,9 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import * as React from 'react'
+import appCss from '../styles/app.css?url'
 import type { QueryClient } from '@tanstack/react-query'
-import appCss from '~/styles/app.css?url'
+import type { ReactNode } from 'react'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -59,7 +59,7 @@ function RootComponent() {
   )
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: ReactNode }) {
   return (
     <html>
       <head>
