@@ -3,6 +3,8 @@
   extends: ["config:recommended", "helpers:pinGitHubActionDigests"],
   timezone: "America/Los_Angeles",
   minimumReleaseAge: "14 days",
+  // TODO: Remove `constraints` once https://github.com/npm/cli/issues/9800 is fixed. npm 12 fails lockfile-only installs with Tailwind 4.
+  constraints: { npm: "^11" },
   ignorePaths: [
     "template-nextjs-clerk-shadcn/**",
     "template-nextjs-lucia-shadcn/**",
