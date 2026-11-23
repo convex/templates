@@ -3,15 +3,15 @@
   "skills": {
     "convex": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex/SKILL.md",
-      "computedHash": "22939725331c04868bc7bb56e49623cf9ee5b2c59b805ee3a5633be8ee9a369a",
+      "computedHash": "78f8adac69d872892cfe90bce0b21559674d1289db37b9978418cde8e429d797",
       "installMode": "copy"
     },
     "convex-add": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-add/SKILL.md",
       "computedHash": "62a15e9588d056cd69b6e81327296a56ef48a16283bb8795299561c6e1f17bd7",
@@ -19,7 +19,7 @@
     },
     "convex-advisor": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-advisor/SKILL.md",
       "computedHash": "a2c31fa5eae854df262d6db4a3a49e7a4f92f2a5256a8859acc17c8e4c402ffd",
@@ -27,7 +27,7 @@
     },
     "convex-agent": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-agent/SKILL.md",
       "computedHash": "9feb0bb490256422125c6a50b820e51c7515e278af886c52884999e36a0c6d21",
@@ -35,7 +35,7 @@
     },
     "convex-auth": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-auth/SKILL.md",
       "computedHash": "0a69d3635f8cdc04e2e0053bef95a1ef7e52bd06c6a20c1ff92705e0d4142dbb",
@@ -43,7 +43,7 @@
     },
     "convex-authz": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-authz/SKILL.md",
       "computedHash": "3753d9ba8b771c0ef320f6af44b32cf1209f5205a732484b59d4515c02854f9c",
@@ -51,7 +51,7 @@
     },
     "convex-backup": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-backup/SKILL.md",
       "computedHash": "b7a5e9356e9aac9bb2be7a23b4d919caeb5ec1018854d2adc3e3b72aef98f355",
@@ -59,15 +59,23 @@
     },
     "convex-billing": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-billing/SKILL.md",
       "computedHash": "8292546146e211978ab9dd931bc0f5d5ee0e53346f1b1863bc104e96a981605c",
       "installMode": "copy"
     },
+    "convex-bundle-size": {
+      "source": "convex/agent-skills",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
+      "sourceType": "github",
+      "skillPath": "skills/convex-bundle-size/SKILL.md",
+      "computedHash": "1fdb9d2a77c982e6f4bdc588ee2e952e6e85c1c0c852b7cf455352903e6f0c9b",
+      "installMode": "copy"
+    },
     "convex-cost": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-cost/SKILL.md",
       "computedHash": "58e9127f8430c964a39a69fe2ed00052f1220dff4a539c84873eb7c27a22991b",
@@ -75,7 +83,7 @@
     },
     "convex-create-component": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-create-component/SKILL.md",
       "computedHash": "bc9749298386bfac9ff9ee8d23e5537dcd3bcad1fb6c48bf9587d7afdf034caa",
@@ -83,7 +91,7 @@
     },
     "convex-crons": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-crons/SKILL.md",
       "computedHash": "0a4db16137d7250bd2997fc607269f0e95c284d6307ddc80ea013e76f4436fbd",
@@ -91,7 +99,7 @@
     },
     "convex-deploy-guard": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-deploy-guard/SKILL.md",
       "computedHash": "cec9fc3bb4ad003b771d54b3c35ef2c5621cc60c5f88e6d54c4b11441653861e",
@@ -99,7 +107,7 @@
     },
     "convex-design": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-design/SKILL.md",
       "computedHash": "a66704a84f440c21c0eb5893d4c79da60d27f24ae0464d7dd809e141e20f22a5",
@@ -107,7 +115,7 @@
     },
     "convex-docs": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-docs/SKILL.md",
       "computedHash": "34e22f7f46deed8d80e68a95d98c45db710360267b4a0fa7187995894db431e6",
@@ -115,7 +123,7 @@
     },
     "convex-domains": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-domains/SKILL.md",
       "computedHash": "54884977bae826669106d16a2aad8eec745fe58592e94d1b80a22a71f03d4fe7",
@@ -123,7 +131,7 @@
     },
     "convex-env": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-env/SKILL.md",
       "computedHash": "38a35aaf84d724934def32400ccbde8010cba8ac4ad716d0a9bbbf9e0cfb904d",
@@ -131,7 +139,7 @@
     },
     "convex-expert": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-expert/SKILL.md",
       "computedHash": "b99c28ca1bfa803b4889a1f390a41a7372a93a6a98d4e869ae1d2448f4a06133",
@@ -139,7 +147,7 @@
     },
     "convex-explain-app": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-explain-app/SKILL.md",
       "computedHash": "8fd029098aeadad5dc6362acd7a26df0a80ef2286bc634b1debbca0855e5662c",
@@ -147,7 +155,7 @@
     },
     "convex-improve-convex-plugin": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-improve-convex-plugin/SKILL.md",
       "computedHash": "dc4126f4d620c0795bc09a97d4ff15fd46f0fd67e52807da533a00ca2e0d0bfe",
@@ -155,7 +163,7 @@
     },
     "convex-insights": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-insights/SKILL.md",
       "computedHash": "ec4da4d5aa6d0d68e58adea9c7ef41095d36ad176d3821882f5d187101106706",
@@ -163,7 +171,7 @@
     },
     "convex-launch-readiness": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-launch-readiness/SKILL.md",
       "computedHash": "a789a8a600ee5d061bcec8ed094aa93c8b8f3515580e76d6ef74c866770f2965",
@@ -171,7 +179,7 @@
     },
     "convex-migrate": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-migrate/SKILL.md",
       "computedHash": "0d141a9d2b830775c908280cb4e6fdf7d972928436adfb53547e6cfee9ee71d4",
@@ -179,7 +187,7 @@
     },
     "convex-migrate-rehearse": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-migrate-rehearse/SKILL.md",
       "computedHash": "94ae733a6830688b08df8f5f8ab142f78c85458c321923db64ea8ee2a62c81d1",
@@ -187,7 +195,7 @@
     },
     "convex-monitor": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-monitor/SKILL.md",
       "computedHash": "8defeffe05c64294d01a78ef5288e2a4cc1dd544e90b0bc8f03e52187ceac366",
@@ -195,7 +203,7 @@
     },
     "convex-optimize": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-optimize/SKILL.md",
       "computedHash": "93ce86919e573e394805fb36452d6afffba2d2cec70d625c28a7a74b4d2ad93d",
@@ -203,7 +211,7 @@
     },
     "convex-quickstart": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-quickstart/SKILL.md",
       "computedHash": "3eac9a178d108ca79a80816f9d29c92e3c69c84e1d971a08c722bd07e0f91e2d",
@@ -211,7 +219,7 @@
     },
     "convex-reviewer": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-reviewer/SKILL.md",
       "computedHash": "87bb20b72bc424876773f06fa11fd5f147396b472a7e49924deb003a15ede369",
@@ -219,7 +227,7 @@
     },
     "convex-seed": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-seed/SKILL.md",
       "computedHash": "d247f3d19f4c7e6dc844c4be42a012f36d3c030753aec14a264ad666077bc501",
@@ -227,7 +235,7 @@
     },
     "convex-self-heal": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-self-heal/SKILL.md",
       "computedHash": "bca5e624bff416dcffd0728e6093c3e17e26db5356c7548ad5a29c83148c2e52",
@@ -235,7 +243,7 @@
     },
     "convex-sentinel": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-sentinel/SKILL.md",
       "computedHash": "2ee40f85db668713cdded3b3dc4635c776a1f13aa155fd28bf1c82132e965935",
@@ -243,7 +251,7 @@
     },
     "convex-suggest": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-suggest/SKILL.md",
       "computedHash": "4037167b8011ecdb45bed634a55a958e20848829fd0c62f8433e123c9ccc04ee",
@@ -251,7 +259,7 @@
     },
     "convex-test": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-test/SKILL.md",
       "computedHash": "5b627fefb022a06c8c5765c11556eff85fa00428d1b5b286fab77a512bc03136",
@@ -259,7 +267,7 @@
     },
     "convex-verify": {
       "source": "convex/agent-skills",
-      "commit": "b32286cad1672916953ece2692535f72013f55d2",
+      "commit": "603f4920e15334e26614dcdca44816a4007ee255",
       "sourceType": "github",
       "skillPath": "skills/convex-verify/SKILL.md",
       "computedHash": "5bb7da26480ce5a94475c81b9ec85e6935757c959873ab62dc9a0a67f13d1b2a",
