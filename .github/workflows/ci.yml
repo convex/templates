@@ -116,6 +116,8 @@ jobs:
   build:
     name: ${{ matrix.project }}
     needs: identify-changes
+    # An empty matrix fails the run, so skip the job when no project changed.
+    if: fromJSON(needs.identify-changes.outputs.matrix).include[0] != null
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
