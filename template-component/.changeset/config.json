@@ -1,11 +1,14 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
-  "baseBranch": "main",
-  "access": "public",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "example-org/sample-component",
+      "template": "\n\n- {pull} {summary}"
+    }
+  ],
   "commit": false,
-  "fixed": [],
-  "linked": [],
-  "updateInternalDependencies": "patch",
-  "ignore": []
+  "access": "public",
+  "baseBranch": "main",
+  "format": "prettier"
 }
