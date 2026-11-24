@@ -22,7 +22,7 @@ npm run dev
 If you're reading this README on GitHub and want to use this template, run:
 
 ```
-npm create convex@latest -- -t react-vite-convexauth
+npx create-convex@latest -t react-vite-convexauth
 ```
 
 This template signs users in with a username and a password. To add other login methods, such as GitHub, Google, Apple, passkeys or email + password, see the login provider guides in the [Convex Auth docs](https://docs.convex.dev/auth/convex-auth).
