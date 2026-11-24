@@ -23,6 +23,10 @@ the tests and release workflow.
 ## Releases
 
 Add a Changeset for each user-visible package change with `npx changeset`.
+
+Once your PR is open, add its number in parentheses at the end of the first
+paragraph of each changeset, for example `(#279)`.
+
 Review the generated version PR and its changelog before merging. Approve its
 GitHub Actions runs if GitHub requests approval, and wait for `Test and lint` to
 pass. Merging the version PR tags its commit and stages the tested package on

@@ -4,7 +4,7 @@
     "@changesets/changelog-github",
     {
       "repo": "example-org/sample-component",
-      "template": "\n\n- {pull} {summary}"
+      "template": "\n\n- {summary}"
     }
   ],
   "commit": false,

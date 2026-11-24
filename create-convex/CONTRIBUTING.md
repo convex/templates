@@ -26,7 +26,12 @@ npm create convex -- -t react-vite-shadcn
 # Releases
 
 For a user-visible change, add a Changeset from `create-convex/` with
-`npx changeset`. The **Update release PR** workflow uses pending Changesets to
+`npx changeset`.
+
+Once your PR is open, add its number in parentheses at the end of the first
+paragraph of each changeset, for example `(#279)`.
+
+The **Update release PR** workflow uses pending Changesets to
 open a version PR. Review the generated version and changelog against all
 changes since the last release. GitHub Actions opens that PR, so click
 **Approve workflows to run** if its checks are waiting. Merge it when you want to
