@@ -13,7 +13,7 @@
     "convex": "^1.51.0"
   },
   "devDependencies": {
-    "@convex-dev/eslint-plugin": "^5.0.1",
+    "@convex-dev/eslint-plugin": "^6.0.0",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.6",

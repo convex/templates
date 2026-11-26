@@ -17,7 +17,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@convex-dev/eslint-plugin": "^5.0.1",
+    "@convex-dev/eslint-plugin": "^6.0.0",
     "@eslint/js": "^9.39.5",
     "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^26.6.6",
