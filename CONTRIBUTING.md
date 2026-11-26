@@ -120,4 +120,4 @@ This will make the script pull templates from the specified branch instead of th
 - Developing new templates in a feature branch
 - Testing the interaction between script changes and template changes
 
-Without this environment variable, the script defaults to using the `main` branch.
+Without this environment variable, templates in this repo come from the `main` branch, and a GitHub template (`-t org/repo`) comes from that repo's default branch.
