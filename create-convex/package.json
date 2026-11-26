@@ -30,7 +30,7 @@
     "prepare": "patch-package"
   },
   "engines": {
-    "node": ">=22.23.4"
+    "node": ">=26.13.1"
   },
   "devDependencies": {
     "@changesets/changelog-github": "1.0.1",
