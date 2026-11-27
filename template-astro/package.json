@@ -12,7 +12,7 @@
     "@astrojs/react": "^4.4.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^5.18.2",
+    "astro": "^7.4.13",
     "convex": "^1.51.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
